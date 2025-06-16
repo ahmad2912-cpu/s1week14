@@ -1,0 +1,32 @@
+name: wf-ci
+on:
+ pull_request:
+   branches:
+   - develop
+   types:
+   - opened
+   - synchronize
+ push:
+    branches:
+    - develop
+jobs:
+ linting-job:
+  runs-on: ubuntu-latest
+  steps:
+    - name: Welcome steps
+      run: echo "Welcome to CI Pipline"
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+    - name: Repo information
+      run: |
+        git branch
+        echo "Event Name :${{github.actor}}"  
+        echo "Event Name :${{github.repository}}"
+        echo "Event Name :${{github.event}}"  
+  
+    - name: Lint HTML Files
+      run: npx htmlhint "**/*.html"
+    - name: Lint CSS Files 
+      run: npx stylelint "**/*.css"
+            Build Website With Parcel
+           npa parcel build/src/index.html" --dist-dir/dist
